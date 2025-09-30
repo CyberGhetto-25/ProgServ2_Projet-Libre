@@ -8,8 +8,5 @@ This repository hosts the free project developed as part of the ProgServ2 course
 ## Lien Notion
 https://www.notion.so/01-Projet-php-2775f3c14f82805a96aeca16f63a83d9?source=copy_link
 
-<<<<<<< HEAD
 Ce projet va être fun!
-=======
 hello!
->>>>>>> ana
