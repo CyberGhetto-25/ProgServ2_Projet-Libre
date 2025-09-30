@@ -8,16 +8,18 @@ This repository hosts the free project developed as part of the ProgServ2 course
 ## Lien Notion
 https://www.notion.so/01-Projet-php-2775f3c14f82805a96aeca16f63a83d9?source=copy_link
 
-## Description du projet
-### **⚒️ Fonctionnalités principales**
+## Project Description
 
-| Fonctionnalité | Description |
-| --- | --- |
-| **Gestion des playlists** | Créer/supprimer/renommer une playlist. Ajouter/supprimer des morceaux (via recherche ou upload). Mettre une playlist en privé ou public. Ne pas prendre en compte les doublons. |
-| **Tri et filtrage** | Trier les playlists par note, nom, artiste, genre. Filtrer par visibilité (publique/privée). |
+### Main Features
 
-### **📌 Fonctionnalités optionnelles**
+| Feature               | Description                                                                                     |
+|-----------------------|-------------------------------------------------------------------------------------------------|
+| **Playlist Management** | Create, delete, or rename a playlist. Add or remove tracks (via search or upload). Set a playlist to private or public. Ignore duplicates. |
+| **Sorting and Filtering** | Sort playlists by rating, name, artist, or genre. Filter by visibility (public/private).       |
 
-| Fonctionnalité | Description |
-| --- | --- |
-| **Système de notation** | Noter une playlist ou un morceau (1-5 étoiles). Afficher la note moyenne. |
+### Optional Features
+
+| Feature            | Description                                                                                     |
+|--------------------|-------------------------------------------------------------------------------------------------|
+| **Rating System**  | Rate a playlist or track (1-5 stars). Display the average rating.                             |
+
