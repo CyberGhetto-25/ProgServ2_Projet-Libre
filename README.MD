@@ -24,7 +24,7 @@ https://www.notion.so/01-Projet-php-2775f3c14f82805a96aeca16f63a83d9?source=copy
 |--------------------|-------------------------------------------------------------------------------------------------|
 | **Rating System**  | Rate a playlist or track (1-5 stars). Display the average rating.                             |
 
-### 🌟 Dream Team Collaboration Charter 🌟
+## 🌟 Dream Team Collaboration Charter 🌟
 
 We, the undersigned, commit to fostering a **kind, creative, and effective** collaboration by respecting the following rules:
 
