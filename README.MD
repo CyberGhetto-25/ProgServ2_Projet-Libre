@@ -24,25 +24,53 @@ https://www.notion.so/01-Projet-php-2775f3c14f82805a96aeca16f63a83d9?source=copy
 |--------------------|-------------------------------------------------------------------------------------------------|
 | **Rating System**  | Rate a playlist or track (1-5 stars). Display the average rating.                             |
 
-### 🤝🏻 Collaboration charter
+### 🌟 Dream Team Collaboration Charter 🌟
 
-We, the undersigned, accept and commit to respecting the following rules for a kind, creative, and effective collaboration:
+We, the undersigned, commit to fostering a **kind, creative, and effective** collaboration by respecting the following rules:
 
-No self-shaming: We celebrate our strengths and laugh at our "failures" as learning opportunities. 🎉
-Absolute trust: Everyone’s abilities are an asset, not up for debate. We trust each other, period. ✨
-Everyone is unique: "I am Charline, Ana, Marc… and that’s what makes us strong!" 🌈
-"Yes, and…": No "no, but…" – we build together with positive and creative ideas. 💡
-The right to a coffee (or tea, or hot chocolate) break: Because productivity also means knowing how to unwind. ☕
-We share victories: A success is the team’s success. We celebrate together! 👏
-No toxic jargon: We avoid phrases like "it’s obvious," "it’s simple," or "you should know." We explain with kindness. 🗣️
-"Thank you" is mandatory: A small word for help, an idea, or even a smile. Gratitude is contagious! 🙏
-It’s okay not to know: "I don’t know, but I’ll find out" is a perfectly valid answer. 🔍
-We celebrate small wins: A project completed? A bug fixed? We mark the moment (even with a GIF or emoji). 🎊
+---
+ **Our Rules for Success**
 
-Signatories:
+1. **No self-shaming** 🎉
+   We celebrate our strengths and embrace our "failures" as learning opportunities.
 
-Charline Vernay ✍️
-Marc Bridy ✍️
-Ana Viola ✍️
+2. **Absolute trust** ✨
+   Everyone’s abilities are an asset. We trust each other, no questions asked.
 
-_Date: October 7, 2025_
+3. **Everyone is unique** 🌈
+   "I am Charline, Ana, Marc… and that’s what makes us strong!"
+
+4. **"Yes, and…"** 💡
+   No "no, but…" – we build together with positivity and creativity.
+
+5. **Coffee (or tea, or hot chocolate) breaks are sacred** ☕
+   Productivity includes knowing when to recharge.
+
+6. **Victories are shared** 👏
+   Success belongs to the whole team. We celebrate together!
+
+7. **No toxic jargon** 🗣️
+   Avoid phrases like "it’s obvious" or "you should know." We explain with kindness.
+
+8. **"Thank you" is mandatory** 🙏
+   Gratitude matters—whether for help, ideas, or smiles.
+
+9. **It’s okay not to know** 🔍
+   "I don’t know, but I’ll find out" is a perfectly valid response.
+
+10. **Small wins deserve celebration** 🎊
+    Finished a task? Fixed a bug? Let’s celebrate (even with a GIF or emoji)!
+
+---
+ **Signatories**
+
+| Name            | Signature |
+|-----------------|-----------|
+| Charline Vernay | ✍️        |
+| Marc Bridy      | ✍️        |
+| Ana Viola       | ✍️        |
+
+**Date:** October 7, 2025
+
+---
+*Let’s make this team the best it can be!* 🚀
