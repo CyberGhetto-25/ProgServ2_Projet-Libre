@@ -42,7 +42,7 @@ if (!$playlist) {
     die("Playlist introuvable.");
 }
 
-// Création de la table tracks si besoin
+// Création de la table tracks
 $sql = "CREATE TABLE IF NOT EXISTS tracks (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,

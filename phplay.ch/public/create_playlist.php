@@ -1,7 +1,6 @@
 <?php
 const DATABASE_CONFIGURATION_FILE = __DIR__ . '/../src/config/database.ini';
 
-// Lecture de la config
 $config = parse_ini_file(DATABASE_CONFIGURATION_FILE, true);
 if (!$config) {
     throw new Exception("Erreur lors de la lecture du fichier de configuration : " . DATABASE_CONFIGURATION_FILE);
@@ -89,9 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $stmt->bindValue(':is_public', $isPublic);
         $stmt->execute();
 
-        // Redirection : vers l'accueil (comme create.php). 
-        // Si tu as déjà playlist.php, tu peux plutôt rediriger vers la page de la playlist :
-        // header("Location: ../playlist.php?id=" . $pdo->lastInsertId()); exit();
+        
         header("Location: ../index.php");
         exit();
     }
