@@ -63,3 +63,4 @@ $pdo->exec("
         FOREIGN KEY (track_id) REFERENCES tracks(id) ON DELETE CASCADE
     );
 ");
+?>
