@@ -1,7 +1,7 @@
 <?php
 $pageTitle = "Créer un utilisateur | PHPlay";
-require_once __DIR__ . '/../../includes/config.php';
-require_once __DIR__ . '/../../includes/header.php';
+require_once __DIR__ . '/../includes/config.php';
+require_once __DIR__ . '/../includes/header.php';
 
 // Gestion du formulaire
 $firstName = '';
@@ -44,34 +44,51 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 }
 ?>
 
-<h1>Créer un.e nouvel.le utilisateur.trice</h1>
-<?php if ($_SERVER["REQUEST_METHOD"] === "POST"): ?>
-    <?php if (empty($errors)): ?>
-        <p style="color: green;">Le formulaire a été soumis avec succès !</p>
-    <?php else: ?>
-        <p style="color: red;">Le formulaire contient des erreurs :</p>
-        <ul>
-            <?php foreach ($errors as $error): ?>
-                <li><?= htmlspecialchars($error) ?></li>
-            <?php endforeach; ?>
-        </ul>
-    <?php endif; ?>
-<?php endif; ?>
+<!DOCTYPE html>
+<html lang="fr">
 
-<form action="create.php" method="POST">
-    <label for="first-name">Prénom</label>
-    <input type="text" id="first-name" name="first-name" value="<?= htmlspecialchars($firstName) ?>" required minlength="2">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
 
-    <label for="last-name">Nom</label>
-    <input type="text" id="last-name" name="last-name" value="<?= htmlspecialchars($lastName) ?>" required minlength="2">
+    <title>Créer un.e nouvel.le utilisateur.trice | PHPlay</title>
+</head>
 
-    <label for="email">E-mail</label>
-    <input type="email" id="email" name="email" value="<?= htmlspecialchars($email) ?>" required>
+<body>
+    <main class="container">
+        <?php if ($_SERVER["REQUEST_METHOD"] === "POST"): ?>
+            <?php if (empty($errors)): ?>
+                <p style="color: green;">Le formulaire a été soumis avec succès !</p>
+            <?php else: ?>
+                <p style="color: red;">Le formulaire contient des erreurs :</p>
+                <ul>
+                    <?php foreach ($errors as $error): ?>
+                        <li><?= htmlspecialchars($error) ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
+        <?php endif; ?>
 
-    <label for="age">Âge</label>
-    <input type="number" id="age" name="age" value="<?= htmlspecialchars($age) ?>" required min="0">
+        <form action="create.php" method="POST">
+            <label for="first-name">Prénom</label>
+            <input type="text" id="first-name" name="first-name" value="<?= htmlspecialchars($firstName) ?>" required minlength="2">
 
-    <button type="submit">Créer</button>
-</form>
+            <label for="last-name">Nom</label>
+            <input type="text" id="last-name" name="last-name" value="<?= htmlspecialchars($lastName) ?>" required minlength="2">
 
-<?php require_once __DIR__ . '/../../includes/footer.php'; ?>
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" value="<?= htmlspecialchars($email) ?>" required>
+
+            <label for="age">Âge</label>
+            <input type="number" id="age" name="age" value="<?= htmlspecialchars($age) ?>" required min="0">
+
+            <button type="submit">Créer</button>
+        </form>
+
+        <?php require_once __DIR__ . '/../includes/footer.php'; ?>
+
+    </main>
+
+</body>

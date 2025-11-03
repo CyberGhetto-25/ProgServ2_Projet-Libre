@@ -1,7 +1,7 @@
 <?php
 $pageTitle = "Voir une playlist | PHPlay";
-require_once __DIR__ . '/../../includes/config.php';
-require_once __DIR__ . '/../../includes/header.php';
+require_once __DIR__ . '/../includes/config.php';
+require_once __DIR__ . '/../includes/header.php';
 
 // Récupération de l’ID de la playlist
 $playlistId = $_GET['id'] ?? null;
@@ -28,41 +28,60 @@ $stmt->execute();
 $tracks = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-<h1><?= htmlspecialchars($playlist['playlist_name']) ?></h1>
-<p>
-    Créée par : <?= htmlspecialchars($playlist['first_name'] . ' ' . $playlist['last_name']) ?><br>
-    Visibilité : <?= $playlist['is_public'] ? 'Publique' : 'Privée' ?>
-</p>
+<!DOCTYPE html>
+<html lang="fr">
 
-<p>
-    <a href="../index.php"><button>⬅ Retour à l’accueil</button></a>
-    <a href="create_track.php?playlist_id=<?= $playlistId ?>"><button>➕ Ajouter un morceau</button></a>
-</p>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
 
-<h2>🎵 Morceaux de la playlist</h2>
-<?php if (count($tracks) === 0): ?>
-    <p>Aucun morceau dans cette playlist pour le moment.</p>
-<?php else: ?>
-    <table>
-        <thead>
-            <tr>
-                <th>Titre</th>
-                <th>Artiste</th>
-                <th>Genre</th>
-                <th>Durée (s)</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($tracks as $track): ?>
-                <tr>
-                    <td><?= htmlspecialchars($track['title']) ?></td>
-                    <td><?= htmlspecialchars($track['artist']) ?></td>
-                    <td><?= htmlspecialchars($track['genre'] ?? '-') ?></td>
-                    <td><?= htmlspecialchars($track['duration'] ?? '-') ?></td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-<?php endif; ?>
+    <title>Créer une playlist | PHPlay</title>
+</head>
 
-<?php require_once __DIR__ . '/../../includes/footer.php'; ?>
+<body>
+    <main class="container">
+
+        <h1><?= htmlspecialchars($playlist['playlist_name']) ?></h1>
+        <p>
+            Créée par : <?= htmlspecialchars($playlist['first_name'] . ' ' . $playlist['last_name']) ?><br>
+            Visibilité : <?= $playlist['is_public'] ? 'Publique' : 'Privée' ?>
+        </p>
+
+        <p>
+            <a href="../index.php"><button>⬅ Retour à l’accueil</button></a>
+            <a href="../tracks/create.php?playlist_id=<?= $playlistId ?>"><button>➕ Ajouter un morceau</button></a>
+        </p>
+
+        <h2>🎵 Morceaux de la playlist</h2>
+        <?php if (count($tracks) === 0): ?>
+            <p>Aucun morceau dans cette playlist pour le moment.</p>
+        <?php else: ?>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Titre</th>
+                        <th>Artiste</th>
+                        <th>Genre</th>
+                        <th>Durée (s)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($tracks as $track): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($track['title']) ?></td>
+                            <td><?= htmlspecialchars($track['artist']) ?></td>
+                            <td><?= htmlspecialchars($track['genre'] ?? '-') ?></td>
+                            <td><?= htmlspecialchars($track['duration'] ?? '-') ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php endif; ?>
+
+        <?php require_once __DIR__ . '/../includes/footer.php'; ?>
+    </main>
+</body>
+
+</html>
