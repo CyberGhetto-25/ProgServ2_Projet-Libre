@@ -1,7 +1,7 @@
 <?php
 $pageTitle = "Ajouter un morceau | PHPlay";
-require_once __DIR__ . '/../../includes/config.php';
-require_once __DIR__ . '/../../includes/header.php';
+require_once __DIR__ . '/../includes/config.php';
+require_once __DIR__ . '/../includes/header.php';
 
 // Récupération de la playlist cible
 $playlistId = $_GET['playlist_id'] ?? null;
@@ -60,46 +60,64 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $stmt->bindValue(':track_id', $trackId);
         $stmt->execute();
 
-        header("Location: ../playlists/view.php?id=" . $playlistId);
+        header("Location: ../playlist/view.php?id=" . $playlistId);
         exit();
     }
 }
 ?>
 
-<h1>Ajouter un morceau à la playlist</h1>
-<h3><?= htmlspecialchars($playlist['playlist_name']) ?></h3>
+<!DOCTYPE html>
+<html lang="fr">
 
-<?php if ($_SERVER["REQUEST_METHOD"] === "POST"): ?>
-    <?php if (empty($errors)): ?>
-        <p style="color: green;">Le morceau a été ajouté avec succès</p>
-    <?php else: ?>
-        <p style="color: red;">Le formulaire contient des erreurs :</p>
-        <ul>
-            <?php foreach ($errors as $error): ?>
-                <li><?= htmlspecialchars($error) ?></li>
-            <?php endforeach; ?>
-        </ul>
-    <?php endif; ?>
-<?php endif; ?>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
 
-<form action="create.php?playlist_id=<?= $playlistId ?>" method="POST">
-    <label for="title">Titre du morceau *</label>
-    <input type="text" id="title" name="title" required minlength="2" value="<?= htmlspecialchars($title) ?>">
+    <title>Ajouter un morceau | PHPlay</title>
+</head>
 
-    <label for="artist">Artiste *</label>
-    <input type="text" id="artist" name="artist" required minlength="2" value="<?= htmlspecialchars($artist) ?>">
+<body>
+    <main class="container">
 
-    <label for="genre">Genre</label>
-    <input type="text" id="genre" name="genre" value="<?= htmlspecialchars($genre) ?>">
+        <h3><?= htmlspecialchars($playlist['playlist_name']) ?></h3>
 
-    <label for="duration">Durée (secondes)</label>
-    <input type="number" id="duration" name="duration" min="0" value="<?= htmlspecialchars($duration) ?>">
+        <?php if ($_SERVER["REQUEST_METHOD"] === "POST"): ?>
+            <?php if (empty($errors)): ?>
+                <p style="color: green;">Le morceau a été ajouté avec succès</p>
+            <?php else: ?>
+                <p style="color: red;">Le formulaire contient des erreurs :</p>
+                <ul>
+                    <?php foreach ($errors as $error): ?>
+                        <li><?= htmlspecialchars($error) ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
+        <?php endif; ?>
 
-    <button type="submit">Ajouter à la playlist</button>
-</form>
+        <form action="create.php?playlist_id=<?= $playlistId ?>" method="POST">
+            <label for="title">Titre du morceau *</label>
+            <input type="text" id="title" name="title" required minlength="2" value="<?= htmlspecialchars($title) ?>">
 
-<p>
-    <a href="../playlists/view.php?id=<?= $playlistId ?>"><button>Retour à la playlist</button></a>
-</p>
+            <label for="artist">Artiste *</label>
+            <input type="text" id="artist" name="artist" required minlength="2" value="<?= htmlspecialchars($artist) ?>">
 
-<?php require_once __DIR__ . '/../../includes/footer.php'; ?>
+            <label for="genre">Genre</label>
+            <input type="text" id="genre" name="genre" value="<?= htmlspecialchars($genre) ?>">
+
+            <label for="duration">Durée (secondes)</label>
+            <input type="number" id="duration" name="duration" min="0" value="<?= htmlspecialchars($duration) ?>">
+
+            <button type="submit">Ajouter à la playlist</button>
+        </form>
+
+        <p>
+            <a href="../playlist/view.php?id=<?= $playlistId ?>"><button>Retour à la playlist</button></a>
+        </p>
+
+        <?php require_once __DIR__ . '/../includes/footer.php'; ?>
+    </main>
+</body>
+
+</html>
