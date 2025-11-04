@@ -9,13 +9,13 @@ if (isset($_GET['lang'])) {
 
 // Langue par défaut
 $lang = $_SESSION['lang'] ?? 'fr';
-$langFile = __DIR__ . '/../lang/' . $lang . '.php';
+$langFile = __DIR__ . '/../../src/i18n/translations/' . $lang . '.php';
 
 // Chargement du fichier de langue
 if (file_exists($langFile)) {
     $translations = require $langFile;
 } else {
-    $translations = require __DIR__ . '/../lang/fr.php';
+    $translations = require __DIR__ . '/../../src/i18n/translations/fr.php';
 }
 
 // Fonction de traduction
