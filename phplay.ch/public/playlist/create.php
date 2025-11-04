@@ -1,7 +1,7 @@
 <?php
-$pageTitle = __("create_playlist_title");
 require_once __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/../includes/header.php';
+$pageTitle = __("create_playlist_title");
 
 // Récupération des utilisateurs
 $stmt = $pdo->query("SELECT * FROM users ORDER BY first_name, last_name");

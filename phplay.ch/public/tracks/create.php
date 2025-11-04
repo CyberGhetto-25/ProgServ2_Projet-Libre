@@ -1,7 +1,7 @@
 <?php
-$pageTitle = __("add_track_title");
 require_once __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/../includes/header.php';
+$pageTitle = __("add_track_title");
 
 $playlistId = $_GET['playlist_id'] ?? null;
 if (!$playlistId) die("Aucune playlist spécifiée.");

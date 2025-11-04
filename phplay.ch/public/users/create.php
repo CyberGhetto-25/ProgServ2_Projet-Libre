@@ -1,7 +1,7 @@
 <?php
-$pageTitle = __("create_user_title");
 require_once __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/../includes/header.php';
+$pageTitle = __("create_user_title");
 
 // Gestion du formulaire
 $firstName = '';
