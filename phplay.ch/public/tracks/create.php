@@ -1,29 +1,19 @@
 <?php
-$pageTitle = "Ajouter un morceau | PHPlay";
+$pageTitle = __("add_track_title");
 require_once __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/../includes/header.php';
 
-// Récupération de la playlist cible
 $playlistId = $_GET['playlist_id'] ?? null;
-if (!$playlistId) {
-    die("Aucune playlist spécifiée.");
-}
+if (!$playlistId) die("Aucune playlist spécifiée.");
 
-$sql = "SELECT * FROM playlists WHERE id = :id";
-$stmt = $pdo->prepare($sql);
-$stmt->bindValue(':id', $playlistId, PDO::PARAM_INT);
-$stmt->execute();
-$playlist = $stmt->fetch(PDO::FETCH_ASSOC);
+$stmt = $pdo->prepare("SELECT * FROM playlists WHERE id = :id");
+$stmt->execute([':id' => $playlistId]);
+$playlist = $stmt->fetch();
 
-if (!$playlist) {
-    die("Playlist introuvable.");
-}
+if (!$playlist) die("Playlist introuvable.");
 
-// Gestion du formulaire
-$title = '';
-$artist = '';
-$genre = '';
-$duration = '';
+// Variables
+$title = $artist = $genre = $duration = '';
 $errors = [];
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -32,92 +22,78 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $genre = trim($_POST["genre"] ?? '');
     $duration = trim($_POST["duration"] ?? '');
 
-    if (empty($title) || strlen($title) < 2) {
-        $errors[] = "Le titre doit contenir au moins 2 caractères.";
-    }
-    if (empty($artist) || strlen($artist) < 2) {
-        $errors[] = "L'artiste doit contenir au moins 2 caractères.";
-    }
-    if ($duration !== '' && (!ctype_digit($duration) || $duration < 0)) {
-        $errors[] = "La durée doit être un nombre positif (en secondes).";
-    }
+    if (strlen($title) < 2) $errors[] = __("title_error");
+    if (strlen($artist) < 2) $errors[] = __("artist_error");
+    if ($duration !== '' && (!ctype_digit($duration) || $duration < 0)) $errors[] = __("duration_error");
 
     if (empty($errors)) {
-        // Insertion du morceau
-        $sql = "INSERT INTO tracks (title, artist, genre, duration) VALUES (:title, :artist, :genre, :duration)";
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindValue(':title', $title);
-        $stmt->bindValue(':artist', $artist);
-        $stmt->bindValue(':genre', $genre !== '' ? $genre : null);
-        $stmt->bindValue(':duration', $duration !== '' ? $duration : null);
-        $stmt->execute();
+        $stmt = $pdo->prepare("INSERT INTO tracks (title, artist, genre, duration) VALUES (:title, :artist, :genre, :duration)");
+        $stmt->execute([
+            ':title' => $title,
+            ':artist' => $artist,
+            ':genre' => $genre ?: null,
+            ':duration' => $duration ?: null
+        ]);
+
         $trackId = $pdo->lastInsertId();
 
-        // Association du morceau à la playlist
-        $sql = "INSERT INTO playlist_tracks (playlist_id, track_id) VALUES (:playlist_id, :track_id)";
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindValue(':playlist_id', $playlistId);
-        $stmt->bindValue(':track_id', $trackId);
-        $stmt->execute();
+        $stmt = $pdo->prepare("INSERT INTO playlist_tracks (playlist_id, track_id) VALUES (:playlist_id, :track_id)");
+        $stmt->execute([':playlist_id' => $playlistId, ':track_id' => $trackId]);
 
-        header("Location: ../playlist/view.php?id=" . $playlistId);
+        header("Location: ../playlist/view.php?id=$playlistId");
         exit();
     }
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="fr">
-
+<html lang="<?= $lang ?>">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="color-scheme" content="light dark">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
-
-    <title>Ajouter un morceau | PHPlay</title>
+    <title><?= htmlspecialchars($pageTitle) ?></title>
 </head>
 
 <body>
-    <main class="container">
+<main class="container">
+    <h1><?= __("add_track_heading") ?></h1>
+    <h3><?= htmlspecialchars($playlist['playlist_name']) ?></h3>
 
-        <h3><?= htmlspecialchars($playlist['playlist_name']) ?></h3>
-
-        <?php if ($_SERVER["REQUEST_METHOD"] === "POST"): ?>
-            <?php if (empty($errors)): ?>
-                <p style="color: green;">Le morceau a été ajouté avec succès</p>
-            <?php else: ?>
-                <p style="color: red;">Le formulaire contient des erreurs :</p>
-                <ul>
-                    <?php foreach ($errors as $error): ?>
-                        <li><?= htmlspecialchars($error) ?></li>
-                    <?php endforeach; ?>
-                </ul>
-            <?php endif; ?>
+    <?php if ($_SERVER["REQUEST_METHOD"] === "POST"): ?>
+        <?php if (empty($errors)): ?>
+            <p style="color: green;"><?= __("track_added") ?></p>
+        <?php else: ?>
+            <p style="color: red;"><?= __("error_message") ?></p>
+            <ul>
+                <?php foreach ($errors as $error): ?>
+                    <li><?= htmlspecialchars($error) ?></li>
+                <?php endforeach; ?>
+            </ul>
         <?php endif; ?>
+    <?php endif; ?>
 
-        <form action="create.php?playlist_id=<?= $playlistId ?>" method="POST">
-            <label for="title">Titre du morceau *</label>
-            <input type="text" id="title" name="title" required minlength="2" value="<?= htmlspecialchars($title) ?>">
+    <form method="POST">
+        <label for="title"><?= __("track_title_label") ?></label>
+        <input type="text" id="title" name="title" value="<?= htmlspecialchars($title) ?>" required minlength="2">
 
-            <label for="artist">Artiste *</label>
-            <input type="text" id="artist" name="artist" required minlength="2" value="<?= htmlspecialchars($artist) ?>">
+        <label for="artist"><?= __("track_artist_label") ?></label>
+        <input type="text" id="artist" name="artist" value="<?= htmlspecialchars($artist) ?>" required minlength="2">
 
-            <label for="genre">Genre</label>
-            <input type="text" id="genre" name="genre" value="<?= htmlspecialchars($genre) ?>">
+        <label for="genre"><?= __("track_genre_label") ?></label>
+        <input type="text" id="genre" name="genre" value="<?= htmlspecialchars($genre) ?>">
 
-            <label for="duration">Durée (secondes)</label>
-            <input type="number" id="duration" name="duration" min="0" value="<?= htmlspecialchars($duration) ?>">
+        <label for="duration"><?= __("track_duration_label") ?></label>
+        <input type="number" id="duration" name="duration" min="0" value="<?= htmlspecialchars($duration) ?>">
 
-            <button type="submit">Ajouter à la playlist</button>
-        </form>
+        <button type="submit"><?= __("add_track_button") ?></button>
+    </form>
 
-        <p>
-            <a href="../playlist/view.php?id=<?= $playlistId ?>"><button>Retour à la playlist</button></a>
-        </p>
+    <p>
+        <a href="../playlist/view.php?id=<?= $playlistId ?>"><button><?= __("back_to_playlist") ?></button></a>
+    </p>
 
-        <?php require_once __DIR__ . '/../includes/footer.php'; ?>
-    </main>
+    <?php require_once __DIR__ . '/../includes/footer.php'; ?>
+</main>
 </body>
-
 </html>

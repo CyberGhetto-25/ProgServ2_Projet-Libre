@@ -1,1 +1,4 @@
-<div style="width:100%;text-align:center;"><h1>FOOTER</h1></div>
+<footer style="margin-top:2em;text-align:center;color:gray;">
+    <hr>
+    <p>© <?= date('Y') ?> PHPlay</p>
+</footer>

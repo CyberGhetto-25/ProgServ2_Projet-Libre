@@ -1,9 +1,23 @@
 <?php
 return [
+    // ========== Général ==========
+    'app_name' => 'PHPlay',
+    'home' => 'Accueil',
+    'back_home' => '⬅ Retour à l’accueil',
+    'cancel' => 'Annuler',
+    'save' => 'Enregistrer',
+    'delete' => 'Supprimer',
+    'edit' => 'Modifier',
+    'actions' => 'Actions',
+    'public' => 'Publique',
+    'private' => 'Privée',
+    'yes' => 'Oui',
+    'no' => 'Non',
+
     // ========== Page d'accueil (index.php) ==========
     'home_title' => 'Gestion de mes morceaux | PHPlay',
     'home_heading' => 'PhPlay - Accueil',
-    'home_subheading' => '🎧 PhPlay',
+    'home_subheading' => '🎧 Bienvenue sur PHPlay',
     'new_user_button' => '👤 Nouvel utilisateur',
     'new_playlist_button' => '➕ Nouvelle playlist',
     'users_section' => 'Utilisateurs',
@@ -13,11 +27,10 @@ return [
     'playlist_name' => 'Nom de la playlist',
     'created_by' => 'Créée par',
     'visibility' => 'Visibilité',
-    'public' => 'Publique',
-    'private' => 'Privée',
     'view_playlist' => '🎵 Voir',
+    'view_more' => 'Voir plus',
 
-    // ========== Page de création d'utilisateur (create.php) ==========
+    // ========== Page de création d'utilisateur ==========
     'create_user_title' => 'Créer un.e nouvel.le utilisateur.trice | PHPlay',
     'create_user_heading' => 'Créer un.e nouvel.le utilisateur.trice',
     'first_name' => 'Prénom',
@@ -25,14 +38,16 @@ return [
     'email' => 'E-mail',
     'age' => 'Âge',
     'create_button' => 'Créer',
+    'update_button' => 'Mettre à jour',
     'success_message' => 'Le formulaire a été soumis avec succès !',
     'error_message' => 'Le formulaire contient des erreurs :',
     'first_name_error' => 'Le prénom doit contenir au moins 2 caractères.',
     'last_name_error' => 'Le nom doit contenir au moins 2 caractères.',
     'email_error' => 'Un email valide est requis.',
     'age_error' => "L'âge doit être un nombre positif.",
+    'user_created' => 'Utilisateur créé avec succès !',
 
-    // ========== Page de création de playlist (create_playlist.php) ==========
+    // ========== Page de création de playlist ==========
     'create_playlist_title' => 'Créer une playlist | PHPlay',
     'create_playlist_heading' => 'Créer une nouvelle playlist',
     'playlist_name_label' => 'Nom de la playlist',
@@ -44,33 +59,38 @@ return [
     'playlist_name_error' => 'Le nom de la playlist doit contenir au moins 2 caractères.',
     'user_required_error' => 'Vous devez sélectionner un utilisateur.',
 
-    // ========== Page d'une playlist (playlist.php) ==========
-    'playlist_title' => '%s | PHPlay', // %s sera remplacé par le nom de la playlist
+    // ========== Page d'une playlist ==========
+    'playlist_title' => '%s | PHPlay',
+    'playlist_info' => 'Informations sur la playlist',
+    'created_on' => 'Créée le',
     'tracks_section' => '🎵 Morceaux de la playlist',
     'no_tracks' => 'Aucun morceau dans cette playlist pour le moment.',
     'track_title' => 'Titre',
     'track_artist' => 'Artiste',
     'track_genre' => 'Genre',
     'track_duration' => 'Durée (s)',
-    'back_home' => '⬅ Retour à l’accueil',
     'add_track_button' => '➕ Ajouter un morceau',
+    'delete_track' => 'Supprimer le morceau',
 
-    // ========== Page d'ajout de morceau (create_track.php) ==========
+    // ========== Ajout de morceau ==========
     'add_track_title' => 'Ajouter un morceau | PHPlay',
     'add_track_heading' => 'Ajouter un morceau à la playlist',
     'track_title_label' => 'Titre du morceau *',
     'track_artist_label' => 'Artiste *',
     'track_genre_label' => 'Genre',
     'track_duration_label' => 'Durée (secondes)',
-    'add_track_button' => 'Ajouter à la playlist',
+    'add_track_submit' => 'Ajouter à la playlist',
     'back_to_playlist' => 'Retour à la playlist',
-    'track_added' => 'Le morceau a été ajouté avec succès',
+    'track_added' => 'Le morceau a été ajouté avec succès 🎶',
     'title_error' => 'Le titre doit contenir au moins 2 caractères.',
     'artist_error' => "L'artiste doit contenir au moins 2 caractères.",
     'duration_error' => 'La durée doit être un nombre positif (en secondes).',
 
-    // ========== Messages génériques ==========
+    // ========== Messages système / généraux ==========
+    'error_not_found' => 'Page introuvable.',
+    'error_404' => 'Erreur 404 - La ressource demandée n’existe pas.',
+    'error_500' => 'Erreur interne du serveur.',
+    'database_error' => 'Une erreur est survenue lors de l’accès à la base de données.',
     'required_field' => 'Ce champ est obligatoire.',
-    'min_length' => 'Doit contenir au moins %d caractères.', // %d sera remplacé par le nombre
+    'min_length' => 'Doit contenir au moins %d caractères.',
 ];
-?>

@@ -21,6 +21,8 @@ $pdo->exec($sql);
 // Sélection de la base de données
 $pdo->exec("USE `$database`;");
 
+require_once __DIR__ . '/lang.php';
+
 // Création des tables si elles n'existent pas
 $pdo->exec("
     CREATE TABLE IF NOT EXISTS users (

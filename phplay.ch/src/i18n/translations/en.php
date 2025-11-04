@@ -1,9 +1,23 @@
 <?php
 return [
-    // ========== Home Page (index.php) ==========
+    // ========== General ==========
+    'app_name' => 'PHPlay',
+    'home' => 'Home',
+    'back_home' => '⬅ Back to home',
+    'cancel' => 'Cancel',
+    'save' => 'Save',
+    'delete' => 'Delete',
+    'edit' => 'Edit',
+    'actions' => 'Actions',
+    'public' => 'Public',
+    'private' => 'Private',
+    'yes' => 'Yes',
+    'no' => 'No',
+
+    // ========== Home Page ==========
     'home_title' => 'Manage my tracks | PHPlay',
     'home_heading' => 'PHPlay - Home',
-    'home_subheading' => '🎧 PHPlay',
+    'home_subheading' => '🎧 Welcome to PHPlay',
     'new_user_button' => '👤 New user',
     'new_playlist_button' => '➕ New playlist',
     'users_section' => 'Users',
@@ -13,11 +27,10 @@ return [
     'playlist_name' => 'Playlist name',
     'created_by' => 'Created by',
     'visibility' => 'Visibility',
-    'public' => 'Public',
-    'private' => 'Private',
     'view_playlist' => '🎵 View',
+    'view_more' => 'View more',
 
-    // ========== Create User Page (create.php) ==========
+    // ========== Create User Page ==========
     'create_user_title' => 'Create a new user | PHPlay',
     'create_user_heading' => 'Create a new user',
     'first_name' => 'First name',
@@ -25,14 +38,16 @@ return [
     'email' => 'Email',
     'age' => 'Age',
     'create_button' => 'Create',
-    'success_message' => 'The form was submitted successfully!',
+    'update_button' => 'Update',
+    'success_message' => 'Form submitted successfully!',
     'error_message' => 'The form contains errors:',
     'first_name_error' => 'The first name must contain at least 2 characters.',
     'last_name_error' => 'The last name must contain at least 2 characters.',
     'email_error' => 'A valid email is required.',
     'age_error' => 'Age must be a positive number.',
+    'user_created' => 'User successfully created!',
 
-    // ========== Create Playlist Page (create_playlist.php) ==========
+    // ========== Create Playlist Page ==========
     'create_playlist_title' => 'Create a playlist | PHPlay',
     'create_playlist_heading' => 'Create a new playlist',
     'playlist_name_label' => 'Playlist name',
@@ -44,32 +59,38 @@ return [
     'playlist_name_error' => 'The playlist name must contain at least 2 characters.',
     'user_required_error' => 'You must select a user.',
 
-    // ========== Playlist Page (playlist.php) ==========
-    'playlist_title' => '%s | PHPlay', // %s will be replaced by the playlist name
+    // ========== Playlist Page ==========
+    'playlist_title' => '%s | PHPlay',
+    'playlist_info' => 'Playlist information',
+    'created_on' => 'Created on',
     'tracks_section' => '🎵 Playlist tracks',
     'no_tracks' => 'No tracks in this playlist yet.',
     'track_title' => 'Title',
     'track_artist' => 'Artist',
     'track_genre' => 'Genre',
     'track_duration' => 'Duration (s)',
-    'back_home' => '⬅ Back to home',
     'add_track_button' => '➕ Add a track',
+    'delete_track' => 'Delete track',
 
-    // ========== Add Track Page (create_track.php) ==========
+    // ========== Add Track Page ==========
     'add_track_title' => 'Add a track | PHPlay',
     'add_track_heading' => 'Add a track to the playlist',
     'track_title_label' => 'Track title *',
     'track_artist_label' => 'Artist *',
     'track_genre_label' => 'Genre',
     'track_duration_label' => 'Duration (seconds)',
-    'add_track_button' => 'Add to playlist',
+    'add_track_submit' => 'Add to playlist',
     'back_to_playlist' => 'Back to playlist',
-    'track_added' => 'The track was added successfully',
+    'track_added' => 'Track added successfully 🎶',
     'title_error' => 'The title must contain at least 2 characters.',
     'artist_error' => 'The artist must contain at least 2 characters.',
-    'duration_error' => 'The duration must be a positive number (in seconds).',
+    'duration_error' => 'Duration must be a positive number (in seconds).',
 
-    // ========== Generic Messages ==========
+    // ========== System / Generic Messages ==========
+    'error_not_found' => 'Page not found.',
+    'error_404' => 'Error 404 - Resource not found.',
+    'error_500' => 'Internal server error.',
+    'database_error' => 'An error occurred while accessing the database.',
     'required_field' => 'This field is required.',
-    'min_length' => 'Must contain at least %d characters.', // %d will be replaced by the number
+    'min_length' => 'Must contain at least %d characters.',
 ];
