@@ -14,8 +14,8 @@
 
         <?php
         $pageTitle = "Accueil | PHPlay";
-        require_once __DIR__ . '../includes/config.php';
-        require_once __DIR__ . '../includes/header.php';
+        require_once __DIR__ . '/includes/config.php';
+        require_once __DIR__ . '/includes/header.php';
 
         // Récupération des utilisateurs
         $sql = "SELECT * FROM users";
@@ -38,7 +38,7 @@
 
         <p>
             <a href="users/create.php"><button>👤 Nouvel utilisateur</button></a>
-            <a href="playlist/create.php"><button>➕ Nouvelle playlist</button></a>            
+            <a href="playlist/create.php"><button>➕ Nouvelle playlist</button></a>
         </p>
 
         <h2>Utilisateurs</h2>
@@ -95,7 +95,7 @@
             </table>
         <?php endif; ?>
 
-        <?php require_once __DIR__ . '../includes/footer.php'; ?>
+        <?php require_once __DIR__ . '/includes/footer.php'; ?>
 
     </main>
 </body>
