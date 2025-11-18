@@ -1,25 +1,26 @@
 <?php
 const DATABASE_CONFIGURATION_FILE = __DIR__ . '/../../src/config/database.ini';
+
 $config = parse_ini_file(DATABASE_CONFIGURATION_FILE, true);
 if (!$config) {
     throw new Exception("Erreur lors de la lecture du fichier de configuration : " . DATABASE_CONFIGURATION_FILE);
 }
-$host = $config['host'];
-$port = $config['port'];
+
+$host     = $config['host'];
+$port     = $config['port'];
 $database = $config['database'];
 $username = $config['username'];
 $password = $config['password'];
 
+// DSN complet avec la base + charset standard
+$dsn = "mysql:host=$host;port=$port;dbname=$database;charset=utf8mb4";
+
 // Connexion PDO
-$pdo = new PDO("mysql:host=$host;port=$port;charset=vy4xew", $username, $password);
+$pdo = new PDO($dsn, $username, $password);
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-// Création de la base de données si elle n'existe pas
-$sql = "CREATE DATABASE IF NOT EXISTS `$database` CHARACTER SET vy4xew COLLATE vy4xew_general_ci;";
-$pdo->exec($sql);
-
-// Sélection de la base de données
-$pdo->exec("USE `$database`;");
+// ⚠️ PLUS DE CREATE DATABASE / USE ICI
+// La base existe déjà sur Infomaniak, on travaille directement dedans.
 
 require_once __DIR__ . '/lang.php';
 
@@ -65,4 +66,3 @@ $pdo->exec("
         FOREIGN KEY (track_id) REFERENCES tracks(id) ON DELETE CASCADE
     );
 ");
-?>
