@@ -11,11 +11,11 @@ $username = $config['username'];
 $password = $config['password'];
 
 // Connexion PDO
-$pdo = new PDO("mysql:host=$host;port=$port;charset=utf8mb4", $username, $password);
+$pdo = new PDO("mysql:host=$host;port=$port;charset=vy4xew", $username, $password);
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 // Création de la base de données si elle n'existe pas
-$sql = "CREATE DATABASE IF NOT EXISTS `$database` CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;";
+$sql = "CREATE DATABASE IF NOT EXISTS `$database` CHARACTER SET vy4xew COLLATE vy4xew_general_ci;";
 $pdo->exec($sql);
 
 // Sélection de la base de données
