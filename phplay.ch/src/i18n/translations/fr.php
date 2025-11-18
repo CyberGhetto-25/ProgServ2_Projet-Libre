@@ -93,4 +93,18 @@ return [
     'database_error' => 'Une erreur est survenue lors de l’accès à la base de données.',
     'required_field' => 'Ce champ est obligatoire.',
     'min_length' => 'Doit contenir au moins %d caractères.',
+
+    // ========== LOGIN ==========
+    'login_title' => 'Connexion',
+    'login_button' => 'Se connecter',
+    'password' => 'Mot de passe',
+    'login_invalid_credentials' => 'Email ou mot de passe incorrect.',
+    'invalid_email' => 'Adresse email invalide.',
+    'invalid_age' => "L'âge doit être un nombre positif.",
+    'password_mismatch' => 'Les mots de passe ne correspondent pas.',
+    'password_too_short' => 'Le mot de passe doit contenir au moins 6 caractères.',
+    'password_confirm' => 'Confirmer le mot de passe',
+    'logged_in_as' => 'Connecté en tant que',
+    'logout' => 'Se déconnecter',
+    'login' => 'Se connecter',
 ];

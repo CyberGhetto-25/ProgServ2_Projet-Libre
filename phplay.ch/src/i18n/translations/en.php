@@ -93,4 +93,18 @@ return [
     'database_error' => 'An error occurred while accessing the database.',
     'required_field' => 'This field is required.',
     'min_length' => 'Must contain at least %d characters.',
+
+    // ========== LOGIN ==========
+    'login_title' => 'Login',
+    'login_button' => 'Log in',
+    'password' => 'Password',
+    'login_invalid_credentials' => 'Incorrect password or username',
+    'invalid_email' => 'Invalid email address.',
+    'invalid_age' => 'Age must be a positive number.',
+    'password_mismatch' => 'Passwords do not match.',
+    'password_too_short' => 'Password must contain at least 6 characters.',
+    'password_confirm' => 'Confirm password',
+    'logged_in_as' => 'Connected as',
+    'logout' => 'Log out',
+    'login' => 'Log in',
 ];
