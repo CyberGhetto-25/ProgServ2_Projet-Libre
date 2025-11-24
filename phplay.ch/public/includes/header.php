@@ -5,7 +5,7 @@ require_once __DIR__ . '/auth.php';
 $currentUser = current_user();
 ?>
 <header style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1em;">
-    <h2><a href="/index.php"><img src="/phplay.ch/public/includes/logo.png"></a></h2>
+    <h2><a href="/index.php"><img src="/public/includes/logo.png" alt="Logo"></a></h2>
     <nav>
         <a href="?lang=fr">FR</a> |
         <a href="?lang=en">EN</a>

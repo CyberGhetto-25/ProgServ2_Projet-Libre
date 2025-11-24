@@ -44,7 +44,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.lime.min.css">
     <title><?= htmlspecialchars($pageTitle) ?></title>
 </head>
-
 <body>
 <main class="container">
     <h1><?= __("create_playlist_heading") ?></h1>
