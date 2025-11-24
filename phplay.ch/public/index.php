@@ -37,32 +37,6 @@ $playlists = $stmt->fetchAll();
         <a href="playlist/create.php"><button><?= __('new_playlist_button') ?></button></a>
     </p>
 
-    <h2><?= __('users_section') ?></h2>
-    <?php if (empty($users)): ?>
-        <p><?= __('no_users') ?></p>
-    <?php else: ?>
-        <table>
-            <thead>
-                <tr>
-                    <th><?= __('first_name') ?></th>
-                    <th><?= __('last_name') ?></th>
-                    <th><?= __('email') ?></th>
-                    <th><?= __('age') ?></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($users as $u): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($u['first_name']) ?></td>
-                        <td><?= htmlspecialchars($u['last_name']) ?></td>
-                        <td><?= htmlspecialchars($u['email']) ?></td>
-                        <td><?= htmlspecialchars($u['age']) ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    <?php endif; ?>
-
     <h2><?= __('playlists_section') ?></h2>
     <?php if (empty($playlists)): ?>
         <p><?= __('no_playlists') ?></p>
