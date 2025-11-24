@@ -68,6 +68,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 ?>
+<!DOCTYPE html>
+<html lang="<?= $lang ?>">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.lime.min.css">
+    <title><?= htmlspecialchars($pageTitle) ?></title>
 <main>
     <h1><?= htmlspecialchars($pageTitle) ?></h1>
 
