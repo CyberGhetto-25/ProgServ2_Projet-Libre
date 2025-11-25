@@ -2,10 +2,16 @@
 require_once __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/../includes/lang.php';
 require_once __DIR__ . '/../includes/header.php';
+require_once __DIR__ . '/../src/utils/autoloader.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+const MAIL_CONFIGURATION_FILE = __DIR__ . '/../src/config/mail.ini';
+
 
 $pageTitle = __("create_user_title") ?? "Créer un utilisateur";
 
-// Variables du formulaire
 $firstName = '';
 $lastName  = '';
 $email     = '';
@@ -20,7 +26,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $password  = $_POST["password"] ?? '';
     $passwordConfirm = $_POST["password-confirm"] ?? '';
 
-    // Validations basiques
     if ($firstName === '' || $lastName === '' || $email === '' || $age === '' || $password === '' || $passwordConfirm === '') {
         $errors[] = __("required_field") ?? "Tous les champs sont obligatoires.";
     }
@@ -57,12 +62,56 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 ':password_hash'=> $passwordHash,
             ]);
 
-            // Redirection vers l'accueil ou la liste des users
+            $config = parse_ini_file(MAIL_CONFIGURATION_FILE, true);
+
+            if (!$config) {
+                throw new Exception("Erreur lors de la lecture du fichier de configuration : " . MAIL_CONFIGURATION_FILE);
+            }
+
+            $host = $config['host'];
+            $port = filter_var($config['port'], FILTER_VALIDATE_INT);
+            $authentication = filter_var($config['authentication'], FILTER_VALIDATE_BOOLEAN);
+            $username = $config['username'];
+            $mailPassword = $config['password'];
+            $from_email = $config['from_email'];
+            $from_name = $config['from_name'];
+
+            $mail = new PHPMailer(true);
+
+            try {
+                $mail->isSMTP();
+                $mail->Host = $host;
+                $mail->Port = $port;
+                $mail->SMTPAuth = $authentication;
+                if ($authentication) {
+                    if ($port === 465) {
+                        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+                    } else {
+                        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                    }
+                    $mail->Username = $username;
+                    $mail->Password = $mailPassword;
+                }
+                $mail->CharSet = "UTF-8";
+                $mail->Encoding = "base64";
+
+                $mail->setFrom($from_email, $from_name);
+                $mail->addAddress($email, $firstName . " " . $lastName);
+
+                $mail->isHTML(true);
+                $mail->Subject = 'Bienvenue sur la plateforme !';
+                $mail->Body    = '<b>Bonjour ' . htmlspecialchars($firstName . " " . $lastName) . '.</b> Votre compte utilisateur a bien été créé !';
+                $mail->AltBody = 'Bonjour ' . $firstName . " " . $lastName . '. Votre compte utilisateur a bien été créé !';
+
+                $mail->send();
+            } catch (Exception $e) {
+                error_log("Erreur PHPMailer : " . $mail->ErrorInfo);
+            }
+
             header('Location: /index.php');
             exit;
 
         } catch (PDOException $e) {
-            // Par ex. email déjà utilisé
             $errors[] = __("database_error") ?? "Erreur base de données : " . $e->getMessage();
         }
     }
@@ -78,7 +127,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 <main>
     <h1><?= htmlspecialchars($pageTitle) ?></h1>
-
     <?php if (!empty($errors)) : ?>
         <ul style="color:red;">
             <?php foreach ($errors as $error) : ?>
@@ -90,25 +138,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <form method="post" action="/users/create.php">
         <label for="first-name"><?= __("first_name") ?? "Prénom" ?></label>
         <input type="text" id="first-name" name="first-name" value="<?= htmlspecialchars($firstName) ?>" required>
-
         <label for="last-name"><?= __("last_name") ?? "Nom" ?></label>
         <input type="text" id="last-name" name="last-name" value="<?= htmlspecialchars($lastName) ?>" required>
-
         <label for="email"><?= __("email") ?? "Email" ?></label>
         <input type="email" id="email" name="email" value="<?= htmlspecialchars($email) ?>" required>
-
         <label for="age"><?= __("age") ?? "Âge" ?></label>
         <input type="number" id="age" name="age" value="<?= htmlspecialchars($age) ?>" required min="0">
-
         <label for="password"><?= __("password") ?? "Mot de passe" ?></label>
         <input type="password" id="password" name="password" required>
-
         <label for="password-confirm"><?= __("password_confirm") ?? "Confirmer le mot de passe" ?></label>
         <input type="password" id="password-confirm" name="password-confirm" required>
-
         <button type="submit"><?= __("create_button") ?? "Créer" ?></button>
     </form>
-
     <?php require_once __DIR__ . '/../includes/footer.php'; ?>
 </main>
 </body>
