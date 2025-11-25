@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/../includes/lang.php';
 require_once __DIR__ . '/../includes/header.php';
-require_once __DIR__ . '/../src/utils/autoloader.php';
+require_once __DIR__ . '/../../src/utils/autoloader.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
