@@ -7,7 +7,7 @@ require_once __DIR__ . '/../../src/utils/autoloader.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-const MAIL_CONFIGURATION_FILE = __DIR__ . '/../src/config/mail.ini';
+const MAIL_CONFIGURATION_FILE = __DIR__ . '/../../src/config/mail.ini';
 
 
 $pageTitle = __("create_user_title") ?? "Créer un utilisateur";
