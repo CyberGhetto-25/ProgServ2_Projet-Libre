@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 ':last_name'    => $lastName,
                 ':email'        => $email,
                 ':age'          => (int)$age,
-                ':password_hash'=> $passwordHash,
+                ':password_hash' => $passwordHash,
             ]);
 
             $config = parse_ini_file(MAIL_CONFIGURATION_FILE, true);
@@ -99,9 +99,49 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $mail->addAddress($email, $firstName . " " . $lastName);
 
                 $mail->isHTML(true);
-                $mail->Subject = 'Bienvenue sur la plateforme !';
-                $mail->Body    = '<b>Bonjour ' . htmlspecialchars($firstName . " " . $lastName) . '.</b> Votre compte utilisateur a bien été créé !';
-                $mail->AltBody = 'Bonjour ' . $firstName . " " . $lastName . '. Votre compte utilisateur a bien été créé !';
+                $mail->Subject = 'Bienvenue sur PHPlay !';
+
+                $mail->Body = '
+<html>
+<body style="margin:0; padding:0; background-color:#f4f4f4; font-family:Arial, sans-serif;">
+    <table align="center" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px; background:#ffffff; border-radius:8px; padding:20px;">
+        <tr>
+            <td style="text-align:center; padding-bottom:20px;">
+                <h2 style="color:#4CAF50; margin:0;">Bienvenue sur PHPlay 🎉</h2>
+            </td>
+        </tr>
+
+        <tr>
+            <td style="font-size:16px; color:#333;">
+                <p>Bonjour <strong>' . htmlspecialchars($firstName . " " . $lastName) . '</strong>,</p>
+                <p>Nous sommes ravis de vous compter parmi les nouveaux utilisateurs de notre plateforme.</p>
+                <p>Votre compte a bien été créé et vous pouvez désormais vous connecter et utiliser tous nos services.</p>
+                
+                <p style="margin-top:25px;">Si vous avez la moindre question, n’hésitez pas à nous contacter.</p>
+
+                <p style="margin-top:30px; font-size:14px; color:#777;">
+                    À très bientôt,<br>
+                    <strong>L\'équipe PHPlay</strong>
+                </p>
+            </td>
+        </tr>
+
+        <tr>
+            <td style="text-align:center; padding-top:20px; color:#aaa; font-size:12px;">
+                © ' . date("Y") . ' PHPlay — Tous droits réservés
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+';
+
+                $mail->AltBody =
+                    "Bienvenue sur PHPlay !\n\n" .
+                    "Bonjour " . $firstName . " " . $lastName . ",\n" .
+                    "Votre compte utilisateur a bien été créé.\n\n" .
+                    "À bientôt,\n" .
+                    "L'équipe PHPlay";
 
                 $mail->send();
             } catch (Exception $e) {
@@ -110,7 +150,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             header('Location: /index.php');
             exit;
-
         } catch (PDOException $e) {
             $errors[] = __("database_error") ?? "Erreur base de données : " . $e->getMessage();
         }
@@ -119,6 +158,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 ?>
 <!DOCTYPE html>
 <html lang="<?= $lang ?>">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -153,4 +193,5 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <?php require_once __DIR__ . '/../includes/footer.php'; ?>
 </main>
 </body>
+
 </html>
