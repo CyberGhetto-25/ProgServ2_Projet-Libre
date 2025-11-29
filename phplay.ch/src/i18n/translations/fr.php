@@ -107,4 +107,12 @@ return [
     'logged_in_as' => 'Connecté en tant que',
     'logout' => 'Se déconnecter',
     'login' => 'Se connecter',
+
+    "select_existing_track" => "Sélectionner un track existant",
+    "create_new_track" => "Créer un nouveau track",
+    "search_track" => "Rechercher un track...",
+    "no_tracks_available" => "Aucun track disponible dans la base de données.",
+    "add_selected_track" => "Ajouter le track sélectionné",
+    "select_track_error" => "Veuillez sélectionner un track.",
+    "track_already_in_playlist" => "Ce track est déjà présent dans la playlist.",
 ];
