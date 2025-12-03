@@ -1,30 +1,30 @@
 <?php
 require_once __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/../includes/header.php';
+
+if (!is_logged_in()) {
+    header("Location: ../users/login.php");
+    exit();
+}
+
 $pageTitle = __("create_playlist_title");
 
-// Récupération des utilisateurs
-$stmt = $pdo->query("SELECT * FROM users ORDER BY first_name, last_name");
-$users = $stmt->fetchAll();
-
 $playlistName = '';
-$userId = '';
 $isPublic = 0;
 $errors = [];
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $playlistName = trim($_POST["playlist-name"] ?? '');
-    $userId = $_POST["user-id"] ?? '';
     $isPublic = isset($_POST["is-public"]) ? 1 : 0;
 
     if (strlen($playlistName) < 2) $errors[] = __("playlist_name_error");
-    if (empty($userId)) $errors[] = __("user_required_error");
 
     if (empty($errors)) {
+        $currentUser = current_user();
         $stmt = $pdo->prepare("INSERT INTO playlists (user_id, playlist_name, is_public) 
                                VALUES (:user_id, :playlist_name, :is_public)");
         $stmt->execute([
-            ':user_id' => $userId,
+            ':user_id' => $currentUser['id'],
             ':playlist_name' => $playlistName,
             ':is_public' => $isPublic
         ]);
@@ -34,7 +34,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="<?= $lang ?>">
 <head>
@@ -64,16 +63,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <form method="POST">
         <label for="playlist-name"><?= __("playlist_name_label") ?></label>
         <input type="text" id="playlist-name" name="playlist-name" value="<?= htmlspecialchars($playlistName) ?>" required minlength="2">
-
-        <label for="user-id"><?= __("user_label") ?></label>
-        <select id="user-id" name="user-id" required>
-            <option value=""><?= __("select_user") ?></option>
-            <?php foreach ($users as $user): ?>
-                <option value="<?= $user['id'] ?>" <?= ($userId == $user['id']) ? 'selected' : '' ?>>
-                    <?= htmlspecialchars($user['first_name'] . ' ' . $user['last_name']) ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
 
         <label>
             <input type="checkbox" name="is-public" <?= !empty($isPublic) ? 'checked' : '' ?>>
