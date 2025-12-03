@@ -115,4 +115,6 @@ return [
     "add_selected_track" => "Add selected track",
     "select_track_error" => "Please select a track.",
     "track_already_in_playlist" => "This track is already in the playlist.",
+
+    "filter_tracks" => "Filter by title, artist or genre...",
 ];

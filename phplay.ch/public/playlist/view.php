@@ -28,6 +28,11 @@ $tracks = $stmt->fetchAll();
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.lime.min.css">
     <title><?= sprintf(__("playlist_title"), htmlspecialchars($playlist['playlist_name'])) ?></title>
+    <style>
+        .filter-box {
+            margin-bottom: 2rem;
+        }
+    </style>
 </head>
 <body>
 <main class="container">
@@ -46,7 +51,10 @@ $tracks = $stmt->fetchAll();
     <?php if (count($tracks) === 0): ?>
         <p><?= __("no_tracks") ?></p>
     <?php else: ?>
-        <table>
+        <div class="filter-box">
+            <input type="text" id="filterInput" placeholder="<?= __("filter_tracks") ?>" onkeyup="filterTable()">
+        </div>
+        <table id="tracksTable">
             <thead>
             <tr>
                 <th><?= __("track_title") ?></th>
@@ -67,6 +75,28 @@ $tracks = $stmt->fetchAll();
             </tbody>
         </table>
     <?php endif; ?>
+
+    <script>
+        function filterTable() {
+            const input = document.getElementById('filterInput');
+            const filter = input.value.toLowerCase();
+            const table = document.getElementById('tracksTable');
+            const rows = table.getElementsByTagName('tr');
+
+            for (let i = 1; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+                const title = cells[0].textContent.toLowerCase();
+                const artist = cells[1].textContent.toLowerCase();
+                const genre = cells[2].textContent.toLowerCase();
+
+                if (title.includes(filter) || artist.includes(filter) || genre.includes(filter)) {
+                    rows[i].style.display = '';
+                } else {
+                    rows[i].style.display = 'none';
+                }
+            }
+        }
+    </script>
 
     <?php require_once __DIR__ . '/../includes/footer.php'; ?>
 </main>
