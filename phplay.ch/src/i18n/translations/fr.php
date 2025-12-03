@@ -117,4 +117,7 @@ return [
     "track_already_in_playlist" => "Ce track est déjà présent dans la playlist.",
 
     "filter_tracks" => "Filtrer par titre, artiste ou genre...",
+
+    "playlist_not_found" => "Playlist introuvable.",
+    "playlist_access_denied" => "Vous n'avez pas accès à cette playlist privée.",
 ];

@@ -11,7 +11,21 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute([':id' => $playlistId]);
 $playlist = $stmt->fetch();
 
-if (!$playlist) die("Playlist introuvable.");
+if (!$playlist) {
+    $_SESSION['error_message'] = __("playlist_not_found");
+    header("Location: ../index.php");
+    exit();
+}
+
+$currentUser = current_user();
+
+if (!$playlist['is_public']) {
+    if (!$currentUser || $currentUser['id'] != $playlist['user_id']) {
+        $_SESSION['error_message'] = __("playlist_access_denied");
+        header("Location: ../index.php");
+        exit();
+    }
+}
 
 $sql = "SELECT t.* FROM tracks t 
         JOIN playlist_tracks pt ON t.id = pt.track_id 

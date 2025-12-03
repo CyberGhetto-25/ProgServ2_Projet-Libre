@@ -111,10 +111,13 @@ return [
     "select_existing_track" => "Select an existing track",
     "create_new_track" => "Create a new track",
     "search_track" => "Search for a track...",
-    "no_tracks_available" => "No tracks available in the database.", 
+    "no_tracks_available" => "No tracks available in the database.",
     "add_selected_track" => "Add selected track",
     "select_track_error" => "Please select a track.",
     "track_already_in_playlist" => "This track is already in the playlist.",
 
     "filter_tracks" => "Filter by title, artist or genre...",
+
+    "playlist_not_found" => "Playlist not found.",
+    "playlist_access_denied" => "You don't have access to this private playlist.",
 ];

@@ -8,11 +8,9 @@ require_once __DIR__ . '/includes/config.php';
 require_once __DIR__ . '/includes/header.php';
 $pageTitle = __('home_title');
 
-// Récupération des utilisateurs
 $stmt = $pdo->query("SELECT * FROM users");
 $users = $stmt->fetchAll();
 
-// Récupération des playlists
 $stmt = $pdo->query("SELECT p.*, u.first_name, u.last_name
                      FROM playlists p
                      JOIN users u ON p.user_id = u.id
@@ -33,9 +31,18 @@ $playlists = $stmt->fetchAll();
     <h1><?= __('home_heading') ?></h1>
     <h2><?= __('home_subheading') ?></h2>
 
+    <?php if (isset($_SESSION['error_message'])): ?>
+        <p style="color: red;"><?= htmlspecialchars($_SESSION['error_message']) ?></p>
+        <?php unset($_SESSION['error_message']); ?>
+    <?php endif; ?>
+
     <p>
         <a href="users/create.php"><button><?= __('new_user_button') ?></button></a>
-        <a href="playlist/create.php"><button><?= __('new_playlist_button') ?></button></a>
+        <?php if (isset($_SESSION['user'])): ?>
+            <a href="playlist/create.php"><button><?= __('new_playlist_button') ?></button></a>
+        <?php else: ?>
+            <a href="users/login.php"><button><?= __('new_playlist_button') ?></button></a>
+        <?php endif; ?>
     </p>
 
     <h2><?= __('playlists_section') ?></h2>
