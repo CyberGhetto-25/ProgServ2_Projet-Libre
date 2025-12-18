@@ -39,6 +39,8 @@ return [
     'age' => 'Âge',
     'create_button' => 'Créer',
     'update_button' => 'Mettre à jour',
+    'cancel_button' => 'Modifier',
+    'edit_playlist_heading' => 'Modifier la playlist',
     'success_message' => 'Le formulaire a été soumis avec succès !',
     'error_message' => 'Le formulaire contient des erreurs :',
     'first_name_error' => 'Le prénom doit contenir au moins 2 caractères.',

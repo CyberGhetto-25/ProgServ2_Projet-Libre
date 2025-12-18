@@ -39,6 +39,8 @@ return [
     'age' => 'Age',
     'create_button' => 'Create',
     'update_button' => 'Update',
+    'cancel_button' => 'Cancel',
+    'edit_playlist_heading' => 'Update playlist',
     'success_message' => 'Form submitted successfully!',
     'error_message' => 'The form contains errors:',
     'first_name_error' => 'The first name must contain at least 2 characters.',

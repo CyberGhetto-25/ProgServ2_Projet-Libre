@@ -87,7 +87,7 @@ $pageTitle = __("edit_playlist_title") ?? "Modifier la Playlist";
         </label>
 
         <div class="grid">
-            <button type="submit"><?= __("update_playlist_button") ?? "Mettre à jour" ?></button>
+            <button type="submit"><?= __("update_button") ?? "Mettre à jour" ?></button>
             <a href="view.php?id=<?= $playlistId ?>" class="secondary" role="button"><?= __("cancel_button") ?? "Annuler" ?></a>
         </div>
     </form>
