@@ -1,6 +1,13 @@
 <?php
 require_once __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/../includes/header.php';
+require_once __DIR__ . '/../includes/auth.php';
+
+// Vérifier que l'utilisateur est connecté
+if (!is_logged_in()) {
+    header("Location: ../users/login.php");
+    exit();
+}
 
 $playlistId = $_GET['id'] ?? null;
 if (!$playlistId) {
@@ -8,32 +15,31 @@ if (!$playlistId) {
     exit();
 }
 
-// 1. Récupérer les infos de la playlist pour le pré-remplissage
+// 1. Récupérer les infos de la playlist
 $stmt = $pdo->prepare("SELECT * FROM playlists WHERE id = :id");
 $stmt->execute([':id' => $playlistId]);
 $playlist = $stmt->fetch();
 
 if (!$playlist) die("Playlist introuvable.");
 
-// 2. Récupérer la liste des utilisateurs pour le select
-$stmt = $pdo->query("SELECT * FROM users ORDER BY first_name, last_name");
-$users = $stmt->fetchAll();
+// 2. Vérifier que l'utilisateur connecté est bien le propriétaire
+$currentUser = current_user();
+if ($currentUser['id'] != $playlist['user_id']) {
+    die("Vous n'avez pas l'autorisation de modifier cette playlist.");
+}
 
 $errors = [];
 
 // 3. Traitement de la modification (POST)
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $playlistName = trim($_POST["playlist-name"] ?? '');
-    $userId = $_POST["user-id"] ?? '';
     $isPublic = isset($_POST["is-public"]) ? 1 : 0;
 
     if (strlen($playlistName) < 2) $errors[] = __("playlist_name_error");
-    if (empty($userId)) $errors[] = __("user_required_error");
 
     if (empty($errors)) {
-        $stmt = $pdo->prepare("UPDATE playlists SET user_id = :user_id, playlist_name = :name, is_public = :is_public WHERE id = :id");
+        $stmt = $pdo->prepare("UPDATE playlists SET playlist_name = :name, is_public = :is_public WHERE id = :id");
         $stmt->execute([
-            ':user_id' => $userId,
             ':name' => $playlistName,
             ':is_public' => $isPublic,
             ':id' => $playlistId
@@ -71,15 +77,6 @@ $pageTitle = __("edit_playlist_title") ?? "Modifier la Playlist";
     <form method="POST">
         <label for="playlist-name"><?= __("playlist_name_label") ?></label>
         <input type="text" id="playlist-name" name="playlist-name" value="<?= htmlspecialchars($playlist['playlist_name']) ?>" required>
-
-        <label for="user-id"><?= __("user_label") ?></label>
-        <select id="user-id" name="user-id" required>
-            <?php foreach ($users as $user): ?>
-                <option value="<?= $user['id'] ?>" <?= ($playlist['user_id'] == $user['id']) ? 'selected' : '' ?>>
-                    <?= htmlspecialchars($user['first_name'] . ' ' . $user['last_name']) ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
 
         <label>
             <input type="checkbox" name="is-public" <?= $playlist['is_public'] ? 'checked' : '' ?>>
