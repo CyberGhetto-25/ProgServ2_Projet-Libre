@@ -109,6 +109,7 @@ return [
     'logged_in_as' => 'Connected as',
     'logout' => 'Log out',
     'login' => 'Log in',
+    'register' => "Sign up",
 
     "select_existing_track" => "Select an existing track",
     "create_new_track" => "Create a new track",
