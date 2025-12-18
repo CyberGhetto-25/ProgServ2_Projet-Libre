@@ -7,6 +7,7 @@ function login_user(array $user): void
         'first_name' => $user['first_name'] ?? '',
         'last_name'  => $user['last_name'] ?? '',
         'email'      => $user['email'] ?? '',
+        'role'       => $user['role'] ?? 'user',
     ];
 }
 
@@ -32,6 +33,11 @@ function current_user(): ?array
     return $_SESSION['user'] ?? null;
 }
 
+function is_superadmin(): bool
+{
+    $u = current_user();
+    return $u && ($u['role'] ?? 'user') === 'superadmin';
+}
 /**
  * Exige qu'un utilisateur soit connecté, sinon redirige vers la page de login.
  */
@@ -40,5 +46,12 @@ function require_login(): void
     if (!is_logged_in()) {
         header('Location: /users/login.php');
         exit;
+    }
+}
+
+if (!function_exists('is_superadmin')) {
+    function is_superadmin(): bool
+    {
+        return isset($_SESSION['user']['role']) && $_SESSION['user']['role'] === 'superadmin';
     }
 }
