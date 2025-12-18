@@ -106,26 +106,39 @@ $pageTitle = sprintf(__("playlist_title"), htmlspecialchars($playlist['playlist_
                 <input type="text" id="filterInput" placeholder="Rechercher un morceau..." onkeyup="filterTable()">
             </div>
 
-            <table id="tracksTable" class="striped">
-                <thead>
-                    <tr>
-                        <th><?= __("track_title") ?></th>
-                        <th><?= __("track_artist") ?></th>
-                        <th><?= __("track_genre") ?></th>
-                        <th><?= __("track_duration") ?></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($tracks as $track): ?>
-                        <tr>
-                            <td><?= htmlspecialchars($track['title']) ?></td>
-                            <td><?= htmlspecialchars($track['artist']) ?></td>
-                            <td><?= htmlspecialchars($track['genre'] ?? '-') ?></td>
-                            <td><?= htmlspecialchars($track['duration'] ?? '-') ?> s</td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+<table id="tracksTable" class="striped">
+    <thead>
+        <tr>
+            <th><?= __("track_title") ?></th>
+            <th><?= __("track_artist") ?></th>
+            <th><?= __("track_genre") ?></th>
+            <th><?= __("track_duration") ?></th>
+            <th><?= __("actions") ?></th> </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($tracks as $track): ?>
+            <tr>
+                <td><?= htmlspecialchars($track['title']) ?></td>
+                <td><?= htmlspecialchars($track['artist']) ?></td>
+                <td><?= htmlspecialchars($track['genre'] ?? '-') ?></td>
+                <td><?= htmlspecialchars($track['duration'] ?? '-') ?> s</td>
+                <td>
+                    <a href="../tracks/edit.php?id=<?= $track['id'] ?>&playlist_id=<?= $playlistId ?>" 
+                       data-tooltip="<?= __("edit") ?>">
+                       Edit
+                    </a>
+                    &nbsp;
+                    <a href="../tracks/delete.php?id=<?= $track['id'] ?>&playlist_id=<?= $playlistId ?>" 
+                       style="color: red;" 
+                       onclick="return confirm('<?= __("confirm_delete") ?? "Retirer ce morceau de la playlist ?" ?>')"
+                       data-tooltip="<?= __("delete") ?>">
+                       Delete
+                    </a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
         <?php endif; ?>
     </section>
 
