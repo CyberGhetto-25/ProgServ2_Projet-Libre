@@ -48,3 +48,10 @@ function require_login(): void
         exit;
     }
 }
+
+if (!function_exists('is_superadmin')) {
+    function is_superadmin(): bool
+    {
+        return isset($_SESSION['user']['role']) && $_SESSION['user']['role'] === 'superadmin';
+    }
+}

@@ -1,7 +1,8 @@
 <?php
 require_once __DIR__ . '/../includes/config.php';
-require_once __DIR__ . '/../includes/header.php';
 require_once __DIR__ . '/../includes/auth.php';
+require_once __DIR__ . '/../includes/header.php';
+
 
 // Récupération de l'ID de la playlist
 $playlistId = $_GET['id'] ?? null;
@@ -29,14 +30,11 @@ $isPublic = (int)($playlist['is_public'] ?? 0) === 1;
 $isOwner  = $currentUser && (int)$currentUser['id'] === (int)$playlist['user_id'];
 
 if (!$isPublic && !is_superadmin() && !$isOwner) {
-
-    // si pas loggé -> on l'envoie se connecté
     if (!$currentUser) {
         header("Location: /users/login.php");
         exit();
     }
 
-    // si loggé mais pas owner -> interdit
     http_response_code(403);
     exit("403 Forbidden");
 }
