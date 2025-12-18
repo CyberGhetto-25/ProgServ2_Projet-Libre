@@ -40,6 +40,8 @@ return [
     'create_button' => 'Create',
     'update_button' => 'Update',
     'cancel_button' => 'Cancel',
+    'confirm_delete_playlist' => 'Are you sure you want to delete this playlist?',
+    'confirm_delete_track' => 'Are you sure you want to remove this track from the playlist?',
     'edit_playlist_heading' => 'Update playlist',
     'success_message' => 'Form submitted successfully!',
     'error_message' => 'The form contains errors:',

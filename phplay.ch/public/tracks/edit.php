@@ -18,6 +18,7 @@ if (!$track) die("Morceau introuvable.");
 $errors = [];
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $playlistId = $_POST["playlist_id"] ?? null;
     $title = trim($_POST["title"] ?? '');
     $artist = trim($_POST["artist"] ?? '');
     $genre = trim($_POST["genre"] ?? '');
@@ -36,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             ':id' => $trackId
         ]);
 
-        header("Location: ../Playlist/view.php?id=$playlistId");
+        header("Location: ../playlist/view.php?id=$playlistId");
         exit();
     }
 }
@@ -54,6 +55,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <h1><?= __("edit") ?> : <?= htmlspecialchars($track['title']) ?></h1>
 
     <form method="POST">
+        <input type="hidden" name="playlist_id" value="<?= htmlspecialchars($playlistId) ?>">
+        
         <label><?= __("track_title_label") ?>
             <input type="text" name="title" value="<?= htmlspecialchars($track['title']) ?>" required>
         </label>
@@ -69,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         <div class="grid">
             <button type="submit"><?= __("save") ?></button>
-            <a href="../Playlist/view.php?id=<?= $playlistId ?>" role="button" class="secondary"><?= __("cancel") ?></a>
+            <a href="../playlist/view.php?id=<?= $playlistId ?>" role="button" class="secondary"><?= __("cancel") ?></a>
         </div>
     </form>
 </main>

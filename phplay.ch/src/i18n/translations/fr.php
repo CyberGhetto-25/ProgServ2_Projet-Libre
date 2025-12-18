@@ -45,6 +45,8 @@ return [
     'error_message' => 'Le formulaire contient des erreurs :',
     'first_name_error' => 'Le prénom doit contenir au moins 2 caractères.',
     'last_name_error' => 'Le nom doit contenir au moins 2 caractères.',
+    'confirm_delete_playlist' => 'Êtes-vous sûr de vouloir supprimer cette playlist ?',
+    'confirm_delete_track' => 'Êtes-vous sûr de vouloir retirer ce morceau de la playlist ?',
     'email_error' => 'Un email valide est requis.',
     'age_error' => "L'âge doit être un nombre positif.",
     'user_created' => 'Utilisateur créé avec succès !',

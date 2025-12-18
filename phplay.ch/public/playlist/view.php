@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/../includes/header.php';
-require_once __DIR__ . '/../includes/auth.php'; 
+require_once __DIR__ . '/../includes/auth.php';
 
 // Récupération de l'ID de la playlist
 $playlistId = $_GET['id'] ?? null;
@@ -46,6 +46,7 @@ $pageTitle = sprintf(__("playlist_title"), htmlspecialchars($playlist['playlist_
 
 <!DOCTYPE html>
 <html lang="<?= $lang ?>">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -53,120 +54,126 @@ $pageTitle = sprintf(__("playlist_title"), htmlspecialchars($playlist['playlist_
     <title><?= $pageTitle ?></title>
     <style>
         /* Styles fusionnés */
-        .actions-group, .filter-box {
+        .actions-group,
+        .filter-box {
             margin-bottom: 2rem;
         }
+
         .btn-delete {
             background-color: #d32f2f;
             border-color: #d32f2f;
         }
+
         .btn-edit {
             background-color: #f57c00;
             border-color: #f57c00;
         }
     </style>
 </head>
+
 <body>
-<main class="container">
-    <header>
-        <h1><?= htmlspecialchars($playlist['playlist_name']) ?></h1>
-        <p>
-            <strong><?= __("created_by") ?> :</strong> <?= htmlspecialchars($playlist['first_name'] . ' ' . $playlist['last_name']) ?><br>
-            <strong><?= __("visibility") ?> :</strong> <?= $playlist['is_public'] ? __("public") : __("private") ?>
-        </p>
-    </header>
+    <main class="container">
+        <header>
+            <h1><?= htmlspecialchars($playlist['playlist_name']) ?></h1>
+            <p>
+                <strong><?= __("created_by") ?> :</strong> <?= htmlspecialchars($playlist['first_name'] . ' ' . $playlist['last_name']) ?><br>
+                <strong><?= __("visibility") ?> :</strong> <?= $playlist['is_public'] ? __("public") : __("private") ?>
+            </p>
+        </header>
 
-    <div class="actions-group">
-        <div class="grid">
-            <a href="../index.php" role="button" class="secondary"><?= __("back_home") ?></a>
-            <a href="../tracks/create.php?playlist_id=<?= $playlistId ?>" role="button"><?= __("add_track_button") ?></a>
-            
-            <a href="edit.php?id=<?= $playlistId ?>" role="button" class="btn-edit"><?= __("edit") ?></a>
-            
-            <a href="delete.php?id=<?= $playlistId ?>" 
-               role="button" 
-               class="btn-delete" 
-               onclick="return confirm('<?= __("confirm_delete") ?? "Êtes-vous sûr de vouloir supprimer cette playlist ?" ?>')">
-               <?= __("delete") ?>
-            </a>
-        </div>
-    </div>
+        <div class="actions-group">
+            <div class="grid">
+                <a href="../index.php" role="button" class="secondary"><?= __("back_home") ?></a>
+                <a href="../tracks/create.php?playlist_id=<?= $playlistId ?>" role="button"><?= __("add_track_button") ?></a>
 
-    <hr>
+                <a href="edit.php?id=<?= $playlistId ?>" role="button" class="btn-edit"><?= __("edit") ?></a>
 
-    <section>
-        <h2><?= __("tracks_section") ?></h2>
-        
-        <?php if (count($tracks) === 0): ?>
-            <article>
-                <p><?= __("no_tracks") ?></p>
-            </article>
-        <?php else: ?>
-            <div class="filter-box">
-                <input type="text" id="filterInput" placeholder="Rechercher un morceau..." onkeyup="filterTable()">
+                <a href="delete.php?id=<?= $playlistId ?>"
+                    role="button"
+                    class="btn-delete"
+                    onclick="return confirm('<?= __('confirm_delete_playlist') ?? 'Êtes-vous sûr de vouloir supprimer cette playlist ?' ?>')">
+                    <?= __('delete') ?>
+                </a>
             </div>
+        </div>
 
-<table id="tracksTable" class="striped">
-    <thead>
-        <tr>
-            <th><?= __("track_title") ?></th>
-            <th><?= __("track_artist") ?></th>
-            <th><?= __("track_genre") ?></th>
-            <th><?= __("track_duration") ?></th>
-            <th><?= __("actions") ?></th> </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($tracks as $track): ?>
-            <tr>
-                <td><?= htmlspecialchars($track['title']) ?></td>
-                <td><?= htmlspecialchars($track['artist']) ?></td>
-                <td><?= htmlspecialchars($track['genre'] ?? '-') ?></td>
-                <td><?= htmlspecialchars($track['duration'] ?? '-') ?> s</td>
-                <td>
-                    <a href="../tracks/edit.php?id=<?= $track['id'] ?>&playlist_id=<?= $playlistId ?>" 
-                       data-tooltip="<?= __("edit") ?>">
-                       Edit
-                    </a>
-                    &nbsp;
-                    <a href="../tracks/delete.php?id=<?= $track['id'] ?>&playlist_id=<?= $playlistId ?>" 
-                       style="color: red;" 
-                       onclick="return confirm('<?= __("confirm_delete") ?? "Retirer ce morceau de la playlist ?" ?>')"
-                       data-tooltip="<?= __("delete") ?>">
-                       Delete
-                    </a>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
-        <?php endif; ?>
-    </section>
+        <hr>
 
-    <script>
-        function filterTable() {
-            const input = document.getElementById('filterInput');
-            const filter = input.value.toLowerCase();
-            const table = document.getElementById('tracksTable');
-            const rows = table.getElementsByTagName('tr');
+        <section>
+            <h2><?= __("tracks_section") ?></h2>
 
-            for (let i = 1; i < rows.length; i++) {
-                const cells = rows[i].getElementsByTagName('td');
-                if (cells.length > 0) {
-                    const title = cells[0].textContent.toLowerCase();
-                    const artist = cells[1].textContent.toLowerCase();
-                    const genre = cells[2].textContent.toLowerCase();
+            <?php if (count($tracks) === 0): ?>
+                <article>
+                    <p><?= __("no_tracks") ?></p>
+                </article>
+            <?php else: ?>
+                <div class="filter-box">
+                    <input type="text" id="filterInput" placeholder="<?= __("filter_tracks") ?>" onkeyup="filterTable()">
+                </div>
 
-                    if (title.includes(filter) || artist.includes(filter) || genre.includes(filter)) {
-                        rows[i].style.display = '';
-                    } else {
-                        rows[i].style.display = 'none';
+                <table id="tracksTable" class="striped">
+                    <thead>
+                        <tr>
+                            <th><?= __("track_title") ?></th>
+                            <th><?= __("track_artist") ?></th>
+                            <th><?= __("track_genre") ?></th>
+                            <th><?= __("track_duration") ?></th>
+                            <th><?= __("actions") ?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($tracks as $track): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($track['title']) ?></td>
+                                <td><?= htmlspecialchars($track['artist']) ?></td>
+                                <td><?= htmlspecialchars($track['genre'] ?? '-') ?></td>
+                                <td><?= htmlspecialchars($track['duration'] ?? '-') ?> s</td>
+                                <td>
+                                    <a href="../tracks/edit.php?id=<?= $track['id'] ?>&playlist_id=<?= $playlistId ?>"
+                                        data-tooltip="<?= __("edit") ?>">
+                                        <?= __("edit") ?>
+                                    </a>
+                                    &nbsp;
+                                    <a href="../tracks/delete.php?id=<?= $track['id'] ?>&playlist_id=<?= $playlistId ?>"
+                                        style="color: red;"
+                                        onclick="return confirm('<?= __("confirm_delete_track") ?? "Retirer ce morceau de la playlist ?" ?>')"
+                                        data-tooltip="<?= __("delete") ?>">
+                                        <?= __("delete") ?>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php endif; ?>
+        </section>
+
+        <script>
+            function filterTable() {
+                const input = document.getElementById('filterInput');
+                const filter = input.value.toLowerCase();
+                const table = document.getElementById('tracksTable');
+                const rows = table.getElementsByTagName('tr');
+
+                for (let i = 1; i < rows.length; i++) {
+                    const cells = rows[i].getElementsByTagName('td');
+                    if (cells.length > 0) {
+                        const title = cells[0].textContent.toLowerCase();
+                        const artist = cells[1].textContent.toLowerCase();
+                        const genre = cells[2].textContent.toLowerCase();
+
+                        if (title.includes(filter) || artist.includes(filter) || genre.includes(filter)) {
+                            rows[i].style.display = '';
+                        } else {
+                            rows[i].style.display = 'none';
+                        }
                     }
                 }
             }
-        }
-    </script>
+        </script>
 
-    <?php require_once __DIR__ . '/../includes/footer.php'; ?>
-</main>
+        <?php require_once __DIR__ . '/../includes/footer.php'; ?>
+    </main>
 </body>
+
 </html>

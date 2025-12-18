@@ -11,5 +11,5 @@ if ($trackId && $playlistId) {
     $stmt->execute([':pid' => $playlistId, ':tid' => $trackId]);
 }
 
-header("Location: ../Playlist/view.php?id=$playlistId");
+header("Location: ../playlist/view.php?id=$playlistId");
 exit();
