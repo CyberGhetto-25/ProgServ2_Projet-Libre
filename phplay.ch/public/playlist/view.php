@@ -25,12 +25,20 @@ if (!$playlist) {
 $currentUser = current_user();
 
 // Vérification de la visibilité (Sécurité)
-if (!$playlist['is_public']) {
-    if (!$currentUser || $currentUser['id'] != $playlist['user_id']) {
-        $_SESSION['error_message'] = __("playlist_access_denied") ?? "Accès refusé à cette playlist privée.";
-        header("Location: ../index.php");
+$isPublic = (int)($playlist['is_public'] ?? 0) === 1;
+$isOwner  = $currentUser && (int)$currentUser['id'] === (int)$playlist['user_id'];
+
+if (!$isPublic && !is_superadmin() && !$isOwner) {
+
+    // si pas loggé -> on l'envoie se connecté
+    if (!$currentUser) {
+        header("Location: /users/login.php");
         exit();
     }
+
+    // si loggé mais pas owner -> interdit
+    http_response_code(403);
+    exit("403 Forbidden");
 }
 
 // 2. Récupération des morceaux associés
