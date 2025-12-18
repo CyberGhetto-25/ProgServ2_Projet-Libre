@@ -37,7 +37,6 @@ $playlists = $stmt->fetchAll();
     <?php endif; ?>
 
     <p>
-        <a href="users/create.php"><button><?= __('new_user_button') ?></button></a>
         <?php if (isset($_SESSION['user'])): ?>
             <a href="playlist/create.php"><button><?= __('new_playlist_button') ?></button></a>
         <?php else: ?>

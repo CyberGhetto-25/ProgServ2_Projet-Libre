@@ -109,6 +109,7 @@ return [
     'logged_in_as' => 'Connecté en tant que',
     'logout' => 'Se déconnecter',
     'login' => 'Se connecter',
+    'register' => "S’enregistrer",
 
     "select_existing_track" => "Sélectionner un track existant",
     "create_new_track" => "Créer un nouveau track",

@@ -20,8 +20,9 @@ $currentUser = current_user();
         <?php else: ?>
             &nbsp;|&nbsp;
             <a href="/users/login.php"><?= __("login") ?? "Se connecter" ?></a>
+            &nbsp;|&nbsp;
+            <a href="/users/create.php"><?= __("register") ?? "S’enregistrer" ?></a>
         <?php endif; ?>
     </nav>
 </header>
 <hr>
-
